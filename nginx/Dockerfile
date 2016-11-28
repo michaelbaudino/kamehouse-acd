@@ -23,9 +23,6 @@ RUN ln -sf /dev/stdout /var/log/nginx/access.log \
 # copy letsencrypt-related scripts
 COPY setup renew-letsencrypt-certs /usr/local/bin/
 
-# Share letsencrypt certs/keys repository
-VOLUME "/etc/letsencrypt"
-
 # expose HTTP(S) ports
 EXPOSE 80 443
 

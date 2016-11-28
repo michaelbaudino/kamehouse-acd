@@ -14,12 +14,12 @@ docker build nginx -t kamehouse/nginx
 
 Setup with:
 ```shell
-docker run -it --net=host -e "DOMAIN_NAME=example.com" -e "ADMIN_EMAIL=root@example.com" kamehouse/nginx setup
+docker run -it --net=host -v letsencrypt:/etc/letsencrypt/ -e "DOMAIN_NAME=example.com" -e "ADMIN_EMAIL=root@example.com" kamehouse/nginx setup
 ```
 
 Start with:
 ```shell
-docker run -d --net=host --name kamehouse-nginx kamehouse/nginx
+docker run -d --net=host -v letsencrypt:/etc/letsencrypt/ --name kamehouse-nginx kamehouse/nginx
 ```
 
 Follow logs with:
