@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "Disable Nginx on port 80"
-rm -f /etc/nginx/sites-enabled/force_ssl
+rm -f /etc/nginx/sites-enabled/force_https
 kill -HUP $(pidof nginx)
 
 sleep 3
@@ -10,5 +10,5 @@ echo "Try to renew certificates"
 letsencrypt renew --agree-tos
 
 echo "Re-enable Nginx on port 80"
-ln -s /etc/nginx/sites-available/force_ssl /etc/nginx/sites-enabled/
+ln -s /etc/nginx/sites-available/force_https /etc/nginx/sites-enabled/
 kill -HUP $(pidof nginx)
