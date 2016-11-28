@@ -13,7 +13,7 @@ fi
 if [ -d /etc/letsencrypt/live/$DOMAIN_NAME ]; then
   echo -n "Some keys & certificates already exist for \`$DOMAIN_NAME\`. Overwrite? [y/N]"
   read overwrite
-  if [ ".$overwrite" = ".y" ]; then
+  if [ "$overwrite" = "y" ]; then
     rm -rf /etc/letsencrypt/*
   else
     exit 1
@@ -22,3 +22,4 @@ fi
 
 echo "Fecthing SSL certs from Let's Encrypt"
 letsencrypt certonly --standalone --non-interactive --agree-tos --email $ADMIN_EMAIL --domain $DOMAIN_NAME
+ln -s /etc/letsencrypt/live/{$DOMAIN_NAME,main}
