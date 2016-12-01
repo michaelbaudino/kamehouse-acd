@@ -1,7 +1,7 @@
 version: "2"
 services:
   nginx:
-    build: ./nginx
+    image: michaelbaudino/nginx-letsencrypt-reverse-proxy
     ports:
       - "80:80"
       - "443:443"
