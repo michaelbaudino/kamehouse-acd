@@ -1,0 +1,31 @@
+version: "2"
+volumes:
+  transmission-data:
+    driver: local
+  letsencrypt-data:
+    driver: local
+services:
+  torrents-nginx:
+    extends:
+      file: shared.yml
+      service: nginx
+    depends_on:
+      - torrents-transmission
+    environment:
+      BACKEND: "torrents-transmission:9091"
+  torrents-transmission:
+    image: dperson/transmission
+    restart: "on-failure:3"
+    volumes:
+      - transmission-data:/var/lib/transmission-daemon
+    ports:
+      - "5151:5151"
+    environment:
+      TRUSER: overrideme
+      TRPASSWD: overrideme
+      TR_PEER_PORT: 5151
+      TR_ENCRYPTION: 2 # require encryption
+      TR_PEER_LIMIT_GLOBAL: 4096
+      TR_PEER_LIMIT_PER_TORRENT: 1024
+      TR_UPLOAD_SLOTS_PER_TORRENT: 64
+      TR_RATIO_LIMIT_ENABLED: "false"

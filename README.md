@@ -1,55 +1,31 @@
 # KameHouse Docker containers
 
-## Nginx
-
-This is the base image meant to be used by the other ones. It includes:
-
-* `nginx` with HTTPS forced
-* `letsencrypt`
-
-Build with:
-```shell
-docker build nginx -t kamehouse/nginx
+Build:
+```
+docker-compose build
 ```
 
-Setup with:
-```shell
-docker run -it --net=host -v letsencrypt:/etc/letsencrypt/ -e "DOMAIN_NAME=example.com" -e "ADMIN_EMAIL=root@example.com" kamehouse/nginx setup
+Install Let's Encrypt certificates:
+```
+docker-compose run -p 80:80 nginx letsencrypt-install --domain <example.com> --email <root@example.com> [--staging]
 ```
 
-Start with:
-```shell
-docker run -d --net=host -v letsencrypt:/etc/letsencrypt/ --name kamehouse-nginx kamehouse/nginx
+Run:
+```
+docker-compose up
+```
+
+Renew Let's Encrypt certificates:
+```
+docker-compose exec nginx letsencrypt-renew [--staging] [--force-renewal]
 ```
 
 Follow logs with:
-```shell
-docker logs -f kamehouse-nginx
+```
+docker-compose logs -f nginx
 ```
 
-Update certs with (can be added to `crontab`):
-```shell
-docker exec -it kamehouse-nginx renew-letsencrypt-certs
+Open a shell in running container:
 ```
-
-## Torrents
-
-This is image in charge of downloading media files. It is derived from the Nginx base image and includes:
-
-* `transmission-daemon`
-* `flexget`
-
-Build with:
-```shell
-docker build torrents -t kamehouse/torrents
-```
-
-Setup with:
-```shell
-docker run -it --net=host -v letsencrypt:/etc/letsencrypt/ -e "DOMAIN_NAME=example.com" -e "ADMIN_EMAIL=root@example.com" kamehouse/torrents setup
-```
-
-Start with:
-```shell
-docker run -d --net=host -v letsencrypt:/etc/letsencrypt/ --name kamehouse-torents kamehouse/torrents
+docker-compose exec nginx bash
 ```
