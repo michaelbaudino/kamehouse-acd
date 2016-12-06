@@ -1,4 +1,7 @@
 version: "2"
+volumes:
+  letsencrypt-data:
+    driver: local
 services:
   nginx:
     image: michaelbaudino/nginx-letsencrypt-reverse-proxy

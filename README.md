@@ -12,7 +12,7 @@ docker-compose run -p 80:80 nginx letsencrypt-install --domain <example.com> --e
 
 Run:
 ```
-docker-compose up
+docker-compose -f nginx.yml -f torrents.yml up
 ```
 
 Renew Let's Encrypt certificates:

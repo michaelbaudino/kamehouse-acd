@@ -2,18 +2,13 @@ version: "2"
 volumes:
   transmission-data:
     driver: local
-  letsencrypt-data:
-    driver: local
 services:
-  torrents-nginx:
-    extends:
-      file: shared.yml
-      service: nginx
+  nginx:
     depends_on:
-      - torrents-transmission
+      - transmission
     environment:
-      BACKEND: "torrents-transmission:9091"
-  torrents-transmission:
+      BACKEND: "transmission:9091"
+  transmission:
     image: dperson/transmission
     restart: "on-failure:3"
     volumes:
