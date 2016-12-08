@@ -1,5 +1,10 @@
 # KameHouse Docker containers
 
+Fetch required Docker images:
+```
+docker-compose -f nginx.yml -f transmission.yml pull
+```
+
 Install Let's Encrypt certificates:
 ```
 docker-compose -f nginx.yml run --service-ports nginx letsencrypt-install --domain <example.com> --email <root@example.com> [--staging]
