@@ -12,7 +12,7 @@ docker-compose -f nginx.yml run --service-ports nginx letsencrypt-install --doma
 
 Run:
 ```
-docker-compose -f nginx.yml -f transmission.yml [-f transmission.production.yml] up
+docker-compose -f nginx.yml -f transmission.yml [-f transmission.production.yml] up [-d]
 ```
 
 Renew Let's Encrypt certificates:
