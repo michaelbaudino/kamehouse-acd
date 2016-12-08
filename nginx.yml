@@ -10,4 +10,3 @@ services:
       - "443:443"
     volumes:
       - letsencrypt-data:/etc/letsencrypt/
-    restart: "on-failure:3"

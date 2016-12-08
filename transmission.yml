@@ -10,7 +10,6 @@ services:
       BACKEND: "transmission:9091"
   transmission:
     image: dperson/transmission
-    restart: "on-failure:3"
     volumes:
       - transmission-data:/var/lib/transmission-daemon
     ports:
