@@ -1,0 +1,22 @@
+#!/bin/bash
+
+if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+  c_reset='\e[0m'
+  c_yellow='\e[0;33m'
+  c_purple='\e[0;35m'
+fi
+
+# Copy template config file
+cp -f /flexget/config.template.yml /flexget/config.yml
+
+# Replace variables in config file
+for variable in TRANSMISSION_{HOST,PORT,USERNAME,PASSWORD} SHOWRSS_FEED_URL; do
+  if [ -n "${!variable}" ]; then
+    sed -i "s#{{$variable}}#${!variable}#" /flexget/config.yml
+  else
+    echo -e "$c_yellow[Warning]$c_reset Environment variable not set: $c_purple\$$variable$c_reset."
+  fi
+done
+
+# Run CMD
+eval "$@"

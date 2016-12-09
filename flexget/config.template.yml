@@ -1,0 +1,15 @@
+tasks:
+  ShowRSS:
+    rss: '{{SHOWRSS_FEED_URL}}'
+    all_series:
+      propers: 1 hours
+    transmission:
+      host: {{TRANSMISSION_HOST}}
+      port: {{TRANSMISSION_PORT}}
+      username: '{{TRANSMISSION_USERNAME}}'
+      password: '{{TRANSMISSION_PASSWORD}}'
+      addpaused: no
+schedules:
+  - tasks: [ShowRSS]
+    interval:
+      hours: 1

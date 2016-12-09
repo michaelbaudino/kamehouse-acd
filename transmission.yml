@@ -2,6 +2,8 @@ version: "2"
 volumes:
   transmission-data:
     driver: local
+  flexget-data:
+    driver: local
 services:
   nginx:
     depends_on:
@@ -23,3 +25,13 @@ services:
       TR_PEER_LIMIT_PER_TORRENT: 1024
       TR_UPLOAD_SLOTS_PER_TORRENT: 64
       TR_RATIO_LIMIT_ENABLED: "false"
+  flexget:
+    build: ./flexget
+    depends_on:
+      - transmission
+    environment:
+      TRANSMISSION_HOST: transmission
+      TRANSMISSION_PORT: 9091
+      TRANSMISSION_USERNAME: overrideme
+      TRANSMISSION_PASSWORD: overrideme
+      SHOWRSS_FEED_URL: "https://showrss.info/user/FEED_ID.rss?..."
