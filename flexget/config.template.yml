@@ -9,6 +9,7 @@ tasks:
       username: '{{TRANSMISSION_USERNAME}}'
       password: '{{TRANSMISSION_PASSWORD}}'
       addpaused: no
+  Cleanup:
     clean_transmission:
       host: {{TRANSMISSION_HOST}}
       port: {{TRANSMISSION_PORT}}
@@ -18,6 +19,6 @@ tasks:
       finished_for: 2 days
       min_ratio: 5
 schedules:
-  - tasks: [ShowRSS]
+  - tasks: [ShowRSS, Cleanup]
     interval:
       hours: 1
