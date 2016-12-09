@@ -35,3 +35,5 @@ services:
       TRANSMISSION_USERNAME: overrideme
       TRANSMISSION_PASSWORD: overrideme
       SHOWRSS_FEED_URL: "https://showrss.info/user/FEED_ID.rss?..."
+    volumes:
+      - flexget-data:/flexget
