@@ -5,7 +5,7 @@
 * [x] Create `transmission` Docker image
 * [x] Create `flexget` Docker image
   * [x] Configure ShowRSS integration
-  * [ ] Configure [clean_transmission plugin](http://www.flexget.com/Plugins/clean_transmission)
+  * [x] Configure [clean_transmission plugin](http://www.flexget.com/Plugins/clean_transmission)
   * [ ] Configure [T411 plugin](http://www.flexget.com/Plugins/t411)
   * [ ] Configure [Betaseries plugin](http://www.flexget.com/Plugins/betaseries_list)
 * [ ] Configure `media` as a Docker Compose service based on [manual install procedure](https://gist.github.com/michaelbaudino/2b33ddaa061fb8fc6deb)
