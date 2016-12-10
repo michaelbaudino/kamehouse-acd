@@ -4,3 +4,5 @@ services:
     restart: unless-stopped
   transmission:
     restart: unless-stopped
+  flexget:
+    restart: unless-stopped

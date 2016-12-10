@@ -1,31 +1,33 @@
 # KameHouse Docker containers
 
+## Torrents
+
 Fetch required Docker images:
 ```
-docker-compose -f nginx.yml -f transmission.yml pull
+docker-compose -f transmission.yml pull
 ```
 
 Install Let's Encrypt certificates:
 ```
-docker-compose -f nginx.yml run --service-ports nginx letsencrypt-install --domain <example.com> --email <root@example.com> [--staging]
+docker-compose -f transmission.yml run --service-ports nginx letsencrypt-install --domain <example.com> --email <root@example.com> [--staging]
 ```
 
 Run:
 ```
-docker-compose -f nginx.yml -f transmission.yml [-f transmission.production.yml] [-f transmission.override.yml] up [-d]
+docker-compose -f transmission.yml [-f transmission.production.yml] [-f transmission.override.yml] up [-d]
 ```
 
 Renew Let's Encrypt certificates:
 ```
-docker-compose -f nginx.yml exec nginx letsencrypt-renew [--staging] [--force-renewal]
+docker-compose -f transmission.yml exec nginx letsencrypt-renew [--staging] [--force-renewal]
 ```
 
 Follow logs with:
 ```
-docker-compose -f nginx.yml logs -f nginx
+docker-compose -f transmission.yml logs -f nginx
 ```
 
 Open a shell in running container:
 ```
-docker-compose -f nginx.yml exec nginx bash
+docker-compose -f transmission.yml exec nginx bash
 ```

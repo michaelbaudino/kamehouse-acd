@@ -1,13 +1,20 @@
 version: "2"
 volumes:
+  letsencrypt-data:
+    driver: local
   transmission-data:
     driver: local
   flexget-data:
     driver: local
 services:
   nginx:
-    depends_on:
-      - transmission
+    image: michaelbaudino/nginx-letsencrypt-reverse-proxy
+    depends_on: [transmission]
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - letsencrypt-data:/etc/letsencrypt/
     environment:
       BACKEND: "transmission:9091"
   transmission:
