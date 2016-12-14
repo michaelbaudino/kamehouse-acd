@@ -8,7 +8,7 @@
   * [x] Configure [clean_transmission plugin](http://www.flexget.com/Plugins/clean_transmission)
   * [ ] Configure [T411 plugin](http://www.flexget.com/Plugins/t411)
   * [ ] Configure [Betaseries plugin](http://www.flexget.com/Plugins/betaseries_list)
-* [ ] Configure `media` as a Docker Compose service based on [manual install procedure](https://gist.github.com/michaelbaudino/2b33ddaa061fb8fc6deb)
+* [ ] Configure `media` as a Docker Compose service based on [manual install procedure](https://gist.github.com/michaelbaudino/2b33ddaa061fb8fc6deb) (commands can be executed on host using `docker-machine ssh emby <command>`)
 * [ ] Configure backup of `emby` users :question:
 * [ ] Share `torrents` incoming directory with `media` for auto-organization
 * [x] Configure [Amazon Cloud Drive](https://github.com/yadayada/acd_cli) on `media`
