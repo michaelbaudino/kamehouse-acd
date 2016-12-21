@@ -1,5 +1,7 @@
 FROM python:3.5
 
+MAINTAINER Michael Baudino <michael.baudino@alpine-lab.com>
+
 RUN pip install -I flexget transmissionrpc
 
 RUN mkdir -p /flexget /etc/flexget
