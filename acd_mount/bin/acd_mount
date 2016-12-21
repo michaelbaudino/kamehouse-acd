@@ -16,6 +16,7 @@ mkdir -p ${ACD_MOUNT_POINT}
 acd_cli \
   -nl mount \
   --foreground \
+  --allow-other \
   --uid=${ACD_UID} \
   --gid=${ACD_GID} \
   --umask=${ACD_UMASK} \
