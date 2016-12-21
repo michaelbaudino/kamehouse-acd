@@ -10,15 +10,15 @@
   * [ ] Configure [Betaseries plugin](http://www.flexget.com/Plugins/betaseries_list)
 * [ ] Configure `media` as a Docker Compose service based on [manual install procedure](https://gist.github.com/michaelbaudino/2b33ddaa061fb8fc6deb) (commands can be executed on host using `docker-machine ssh emby <command>`)
 
-* [ ] Mount [Amazon Cloud Drive](https://github.com/yadayada/acd_cli) in `/mnt/raw_acd` on `media`
-* [ ] Mount [Amazon Cloud Drive](https://github.com/yadayada/acd_cli) in `/mnt/raw_acd` on `torrents`
-* [ ] Mount [Amazon Cloud Drive](https://github.com/yadayada/acd_cli) in `/mnt/raw_acd` on `derrick`
-* [ ] Configure [encfs](https://github.com/vgough/encfs) to encrypt `/mnt/raw_acd` in `/mnt/enc_acd` on `media`
-* [ ] Configure [encfs](https://github.com/vgough/encfs) to encrypt `/mnt/raw_acd` in `/mnt/enc_acd` on `torrents`
-* [ ] Configure [encfs](https://github.com/vgough/encfs) to encrypt `/mnt/raw_acd` in `/mnt/enc_acd` on `derrick`
-* [ ] Configure [mhddfs](http://svn.uvw.ru/mhddfs/trunk/README) or [unionfs-fuse](https://github.com/rpodgorny/unionfs-fuse) to merge `/mnt/enc_acd` and `/data/public` in `/cloud` on `media`
-* [ ] Configure [mhddfs](http://svn.uvw.ru/mhddfs/trunk/README) or [unionfs-fuse](https://github.com/rpodgorny/unionfs-fuse) to merge `/mnt/enc_acd` and `/data/public` in `/cloud` on `torrents`
-* [ ] Configure [mhddfs](http://svn.uvw.ru/mhddfs/trunk/README) or [unionfs-fuse](https://github.com/rpodgorny/unionfs-fuse) to merge `/mnt/enc_acd` and `/data/public` in `/cloud` on `derrick`
+* [ ] Mount [Amazon Cloud Drive](https://github.com/yadayada/acd_cli) in `/storage/acd` on `media`
+* [ ] Mount [Amazon Cloud Drive](https://github.com/yadayada/acd_cli) in `/storage/acd` on `torrents`
+* [ ] Mount [Amazon Cloud Drive](https://github.com/yadayada/acd_cli) in `/storage/acd` on `derrick`
+* [ ] Configure [encfs](https://github.com/vgough/encfs) to encrypt `/storage/acd` in `/storage/acd_enc` on `media`
+* [ ] Configure [encfs](https://github.com/vgough/encfs) to encrypt `/storage/acd` in `/storage/acd_enc` on `torrents`
+* [ ] Configure [encfs](https://github.com/vgough/encfs) to encrypt `/storage/acd` in `/storage/acd_enc` on `derrick`
+* [ ] Configure [mhddfs](http://svn.uvw.ru/mhddfs/trunk/README) or [unionfs-fuse](https://github.com/rpodgorny/unionfs-fuse) to merge `/storage/acd_enc` and `/data/public` in `/storage/kamehouse` on `media`
+* [ ] Configure [mhddfs](http://svn.uvw.ru/mhddfs/trunk/README) or [unionfs-fuse](https://github.com/rpodgorny/unionfs-fuse) to merge `/storage/acd_enc` and `/data/public` in `/storage/kamehouse` on `torrents`
+* [ ] Configure [mhddfs](http://svn.uvw.ru/mhddfs/trunk/README) or [unionfs-fuse](https://github.com/rpodgorny/unionfs-fuse) to merge `/storage/acd_enc` and `/data/public` in `/storage/kamehouse` on `derrick`
 
 * [ ] Share `torrents` incoming directory with `media` for auto-organization
 * [ ] Move all content from `derrick` drives to ACD
