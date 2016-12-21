@@ -1,0 +1,33 @@
+#!/bin/bash
+
+### Custom constants
+
+ACD_OAUTH_DATA_FILE="/root/.cache/acd_cli/oauth_data"
+ACD_MOUNT_POINT=${ACD_MOUNT_POINT:-/mnt/acd}
+ACD_UID=${ACD_UID:-0}
+ACD_GID=${ACD_GID:-0}
+ACD_UMASK=${ACD_UMASK:-002}
+ACD_SYNC_INTERVAL=${ACD_SYNC_INTERVAL:-300}
+
+### Generic helpers
+
+if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+  c_reset='\e[0m'
+  c_gray='\e[1;30m'
+  c_red='\e[0;31m'
+  c_green='\e[0;32m'
+  c_yellow='\e[0;33m'
+  c_blue='\e[0;34m'
+  c_purple='\e[0;35m'
+  c_cyan='\e[0;36m'
+fi
+
+pushd () { command pushd "$@" > /dev/null ; }
+popd  () { command popd  "$@" > /dev/null ; }
+
+success () { command echo -ne "${c_green}[info]${c_reset} "     && command echo -e $* ; }
+info    () { command echo -ne "${c_blue}[info]${c_reset} "      && command echo -e $* ; }
+warn    () { command echo -ne "${c_yellow}[warning]${c_reset} " && command echo -e $* ; }
+fail    () { command echo -ne "${c_red}[error]${c_reset} "      && command echo -e $* && exit 1 ; }
+
+clear_line () { echo -ne "\e[2K\r" ; }

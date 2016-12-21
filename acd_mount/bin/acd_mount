@@ -1,0 +1,23 @@
+#!/bin/bash
+
+source $(dirname $0)/.acd_mount.shared
+
+[[ ! -f ${ACD_OAUTH_DATA_FILE} ]] && fail "OAuth data not found. Please run `acd_setup` first (with a persisted volume)."
+
+# Unmount any existing ACDFuse mounts
+acd_cli umount
+
+# Initialize ACD
+acd_cli init
+acd_cli psync /
+
+# Mount ACD
+mkdir -p ${ACD_MOUNT_POINT}
+acd_cli \
+  -nl mount \
+  --foreground \
+  --uid=${ACD_UID} \
+  --gid=${ACD_GID} \
+  --umask=${ACD_UMASK} \
+  --interval=${ACD_SYNC_INTERVAL} \
+  ${ACD_MOUNT_POINT}

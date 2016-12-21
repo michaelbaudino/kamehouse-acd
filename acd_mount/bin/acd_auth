@@ -1,0 +1,39 @@
+#!/bin/bash
+
+source $(dirname $0)/.acd_mount.shared
+
+function handle_existing_auth {
+  echo -ne "An authentication data file already exists. Overwrite? $c_gray[y/N]$c_reset "
+  read -s -n1 overwrite
+  echo
+  case ${overwrite} in
+    y|Y) rm -f ${ACD_OAUTH_DATA_FILE} ; info "Existing authentication data has been deleted." ;;
+    n|N|"") info "Using existing authentication data." ;;
+    *) handle_existing_auth ;;
+  esac
+}
+
+function acd_configure_auth {
+  mkdir -p $(dirname ${ACD_OAUTH_DATA_FILE})
+  echo -e "Please login at ${c_cyan}https://tensile-runway-92512.appspot.com${c_reset} and paste here the content of the downloaded \`oauth_data\` file (end with and empty line)"
+  while IFS= read -r line; do
+    [[ -z $line ]] && break
+    printf '%s\n' "$line" >> ${ACD_OAUTH_DATA_FILE}
+  done
+  [[ -n $line ]] && printf %s "$line" >> ${ACD_OAUTH_DATA_FILE}
+  success "Successfully configured Amazon Cloud Drive credentials."
+}
+
+function acd_initialize {
+  [[ ! -f ${ACD_OAUTH_DATA_FILE} ]] && echo "Error: Amazon Cloud Drive credentials not found. Aborting." && exit 1
+  acd_cli init
+  acd_cli psync /
+  [[ $? -ne 0 ]] && fail "Failed to initialize Amazon Cloud Drive."
+  success "Successfully initialized Amazon Cloud Drive."
+}
+
+### Main
+
+[[ -f ${ACD_OAUTH_DATA_FILE} ]] && handle_existing_auth
+[[ ! -f ${ACD_OAUTH_DATA_FILE} ]] && acd_configure_auth
+acd_initialize
