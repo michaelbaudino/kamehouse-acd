@@ -1,0 +1,34 @@
+version: "2"
+volumes:
+  letsencrypt-data:
+    driver: local
+  acd_cli-data:
+    driver: local
+services:
+  nginx:
+    image: michaelbaudino/nginx-letsencrypt-reverse-proxy
+    depends_on: [emby]
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - letsencrypt-data:/etc/letsencrypt/
+    environment:
+      BACKEND: "emby:8096"
+  emby:
+    image: emby/embyserver
+    depends_on: [storage]
+    volumes:
+      - /emby:/config
+      - /storage:/storage:rshared
+  storage:
+    build: ./acd_mount
+    cap_add:
+      - SYS_ADMIN
+    devices:
+      - /dev/fuse:/dev/fuse
+    volumes:
+      - acd_cli-data:/root/.cache/acd_cli
+      - /storage:/storage:rshared
+    environment:
+      ACD_MOUNT_POINT: /storage/acd
