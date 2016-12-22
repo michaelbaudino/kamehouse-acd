@@ -31,4 +31,5 @@ services:
       - acd_cli-data:/root/.cache/acd_cli
       - /storage:/storage:rshared
     environment:
-      ACD_MOUNT_POINT: /storage/acd
+      ACD_MOUNT_PATH: /storage
+      ENCFS_PASSWORD: ${ENCFS_PASSWORD}

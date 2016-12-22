@@ -3,22 +3,25 @@
 source $(dirname $0)/.acd_mount.shared
 
 [[ ! -f ${ACD_OAUTH_DATA_FILE} ]] && fail "OAuth data not found. Please run `acd_setup` first (with a persisted volume)."
+[[ -z ${ENCFS_PASSWORD} ]] && fail "Required EncFS password not set. Please set ${c_purple}\$ENCFS_PASSWORD${c_reset}."
 
-# Unmount any existing ACDFuse mounts
-acd_cli umount
+# Unmount existing ACDFuse and EncFS mounts
+acd_unmount
+fusermount -u -q ${ACD_MOUNT_PATH}/acd
 
 # Initialize ACD
 acd_cli init
-acd_cli psync /
+acd_cli psync --recursive /
 
 # Mount ACD
-mkdir -p ${ACD_MOUNT_POINT}
+mkdir -p ${ACD_MOUNT_PATH}{,/{.,}acd}
 acd_cli \
   -nl mount \
-  --foreground \
   --allow-other \
   --uid=${ACD_UID} \
   --gid=${ACD_GID} \
   --umask=${ACD_UMASK} \
   --interval=${ACD_SYNC_INTERVAL} \
-  ${ACD_MOUNT_POINT}
+  ${ACD_MOUNT_PATH}/.acd
+
+echo "${ENCFS_PASSWORD}" | encfs -f -o allow_other --standard --stdinpass ${ACD_MOUNT_PATH}/{.,}acd

@@ -3,7 +3,7 @@
 ### Custom constants
 
 ACD_OAUTH_DATA_FILE="/root/.cache/acd_cli/oauth_data"
-ACD_MOUNT_POINT=${ACD_MOUNT_POINT:-/mnt/acd}
+ACD_MOUNT_PATH=${ACD_MOUNT_PATH:-/mnt/}
 ACD_UID=${ACD_UID:-0}
 ACD_GID=${ACD_GID:-0}
 ACD_UMASK=${ACD_UMASK:-002}
