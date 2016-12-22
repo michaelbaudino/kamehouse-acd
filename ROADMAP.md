@@ -33,10 +33,11 @@
 * [ ] Use `media` as default frontend
 * [ ] Unprovision `derrick` :cry:
 
+* [ ] Use `container_name` on some services to prevent scaling
 * [ ] Configure hosts firewalls :question:
 * [ ] Configure backup of `emby` users :question:
 * [ ] Configure [CouchPotato](https://couchpota.to)
-* [ ] Use [Sickrage](https://sickrage.github.io/) instead of Transmission+Flexget+ShowRSS :question:
+* [ ] Use [Sickrage](https://sickrage.github.io) or [Sonarr](https://github.com/Sonarr/Sonarr) instead of Transmission+Flexget+ShowRSS :question:
 
 Target filesystem architecture:
 ```
