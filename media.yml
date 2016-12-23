@@ -20,7 +20,7 @@ services:
     depends_on: [storage]
     volumes:
       - /emby:/config
-      - /storage:/storage:rshared
+      - /mnt:/mnt:rshared
   storage:
     build: ./acd_mount
     cap_add:
@@ -29,7 +29,6 @@ services:
       - /dev/fuse:/dev/fuse
     volumes:
       - acd_cli-data:/root/.cache/acd_cli
-      - /storage:/storage:rshared
+      - /mnt:/mnt:rshared
     environment:
-      ACD_MOUNT_PATH: /storage
       ENCFS_PASSWORD: ${ENCFS_PASSWORD}
