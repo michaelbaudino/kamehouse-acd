@@ -1,5 +1,7 @@
 # Roadmap
 
+## Task list
+
 * [x] Configure `media` for [Emby](https://emby.media/)
 * [x] Share `derrick` drives with `media`
 * [x] Create `transmission` Docker image
@@ -10,28 +12,29 @@
   * [ ] Configure [Betaseries plugin](http://www.flexget.com/Plugins/betaseries_list)
 * [x] Configure `media` as a Docker Compose service based on [manual install procedure](https://gist.github.com/michaelbaudino/2b33ddaa061fb8fc6deb) (commands can be executed on host using `docker-machine ssh emby <command>`)
 
-* [x] Mount [Amazon Cloud Drive](https://github.com/yadayada/acd_cli) in `/storage/.acd` on `media`
-* [ ] Mount [Amazon Cloud Drive](https://github.com/yadayada/acd_cli) in `/storage/.acd` on `torrents`
-* [ ] Mount [Amazon Cloud Drive](https://github.com/yadayada/acd_cli) in `/storage/.acd` on `derrick`
+### Media file hierarchy
 
-* [x] Configure [encfs](https://github.com/vgough/encfs) to encrypt `/storage/.acd` in `/storage/acd` on `media`
-* [ ] Configure [encfs](https://github.com/vgough/encfs) to encrypt `/storage/.acd` in `/storage/acd` on `torrents`
-* [ ] Configure [encfs](https://github.com/vgough/encfs) to encrypt `/storage/.acd` in `/storage/acd` on `derrick`
+* [x] Mount [Amazon Cloud Drive](https://github.com/yadayada/acd_cli) in `/mnt/.acd-fuse`
+* [-] Mount local drive as `/mnt/.acd-cache`
+* [x] Configure [encfs](https://github.com/vgough/encfs) to encrypt `/mnt/.acd-fuse` in `/mnt/acd-fuse`
+* [ ] Configure [encfs](https://github.com/vgough/encfs) to encrypt `/mnt/.acd-cache` in `/mnt/acd-cache`
+* [ ] Configure [unionfs-fuse](https://github.com/rpodgorny/unionfs-fuse) to merge `/mnt/acd-fuse` and `/mnt/acd-cache` in `/mnt/acd`
+* [ ] Configure nightly upload from cache to ACD
 
-* [ ] Configure [sshfs](https://github.com/libfuse/sshfs) to mount Derrick's `/data/public` in `/storage/derrick` on `media`
-* [ ] Configure [sshfs](https://github.com/libfuse/sshfs) to mount Derrick's `/data/public` in `/storage/derrick` on `torrents`
-* [ ] Configure [sshfs](https://github.com/libfuse/sshfs) to mount Derrick's `/data/public` in `/storage/derrick` on `derrick`
+### Migration from Derrick
 
-* [ ] Configure [mhddfs](http://svn.uvw.ru/mhddfs/trunk/README) or [unionfs-fuse](https://github.com/rpodgorny/unionfs-fuse) to merge `/storage/acd` and `/storage/derrick` in `/storage/kamehouse` on `media`
-* [ ] Configure [mhddfs](http://svn.uvw.ru/mhddfs/trunk/README) or [unionfs-fuse](https://github.com/rpodgorny/unionfs-fuse) to merge `/storage/acd` and `/storage/derrick` in `/storage/kamehouse` on `torrents`
-* [ ] Configure [mhddfs](http://svn.uvw.ru/mhddfs/trunk/README) or [unionfs-fuse](https://github.com/rpodgorny/unionfs-fuse) to merge `/storage/acd` and `/storage/derrick` in `/storage/kamehouse` on `derrick`
+* [ ] Mount `/mnt/acd` from `media` into `/data/acd` on `derrick`
+* [ ] Configure [mhddfs](http://svn.uvw.ru/mhddfs/trunk/README) to merge `/data/acd` and `/data/public` in `/data/merged` on `derrick`
+* [ ] Change symlinks in `/var/www/kamehouse/public/data` to point to `/data/merged` on `derrick`
+* [ ] Move all content from `/data/public` to `/data/acd` on `derrick` (it should not change what `/data/merged` sees)
 
-* [ ] Share `torrents` incoming directory with `media` for auto-organization
-* [ ] Move all content from `derrick` drives to ACD
-* [ ] Unprovision all `mhddfs` drives and use ACD everywhere (on `derrick` and `media`)
+### Derrick unprovision
+
 * [ ] Tell existing users to migrate to `media`
 * [ ] Use `media` as default frontend
 * [ ] Unprovision `derrick` :cry:
+
+### Improvements
 
 * [ ] Use `container_name` on some services to prevent scaling
 * [ ] Configure hosts firewalls :question:
@@ -39,9 +42,27 @@
 * [ ] Configure [CouchPotato](https://couchpota.to)
 * [ ] Use [Sickrage](https://sickrage.github.io) or [Sonarr](https://github.com/Sonarr/Sonarr) instead of Transmission+Flexget+ShowRSS :question:
 
-Target filesystem architecture:
+## Notes
+
+### Target filesystem architecture
+
 ```
-[ Derrick ]═══sshfs═══[ /storage/derrick ]════════════════════════════╗
-                                                                      ╠═══mhddfs|unionfs-fuse═══[ /storage/kamehouse ]
-[ ACD ]═══acd_cli═══[ /storage/.acd ]═══encfs═══[ /storage/acd ]═══╝
+( ACD )═══ acd_cli ═══[ /mnt/.acd-fuse  ]═══ encfs ═══[ /mnt/acd-fuse  ]═══╗
+                                                                           ╠═══ mhddfs ═══[ /mnt/acd ]
+( DSSD )══════════════[ /mnt/.acd-cache ]═══ encfs ═══[ /mnt/acd-cache ]═══╝
 ```
+
+### Target Derrick transition filesystem architecture:
+
+```
+[ /data/public ]═════════════════════════════════════════════════╗
+                                                                 ╠═══ mhddfs ═══[ /data/merged ]
+[ ACD ]═══ acd_cli ═══[ /data/.acd ]═══ encfs ═══[ /data/acd ]═══╝
+```
+
+### Literature
+
+* https://github.com/yadayada/acd_cli
+* https://github.com/vgough/encfs/
+* https://github.com/rpodgorny/unionfs-fuse
+* https://amc.ovh
