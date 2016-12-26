@@ -44,7 +44,7 @@ docker-compose -f media.yml run storage acd_auth
 
 Generate an EncFS password and set it as `ENCFS_PASSWORD` in `.env` file:
 ```
-dd bs=1 count=32 if=/dev/urandom status=none | base64 - | sed 's/=$//' >> .env
+dd bs=1 count=256 if=/dev/urandom status=none | base64 - | tr -d '\n' | echo "ENCFS_PASSWORD=$(</dev/stdin)" >> .env
 ```
 
 > :warning: Backup this password very carefully: if lost, all your data will be permanently unrecoverable
