@@ -58,6 +58,6 @@ docker-compose -fmedia{,.production}.yml up [-d]
 
 0. Make sure you have the [Scaleway CLI](https://github.com/scaleway/scaleway-cli) tool authenticated
 1. Create the server: `docker-machine create -d scaleway [--scaleway-commercial-type C2L] --scaleway-name=media media`
-2. Eventually mount the DSSD volume: `docker-machine ssh media 'echo "/dev/sda1 /emby ext4 defaults 0 0" >> /etc/fstab'`
+2. Eventually mount the DSSD volume: `docker-machine ssh media 'echo "/dev/sda1 /emby ext4 defaults 0 0" >> /etc/fstab && mount -a'`
 3. Configure Docker engine to allow shared propagation of volumes: `docker-machine ssh media 'mkdir -p /etc/systemd/system/docker.service.d/ && echo -e "[Service]\nMountFlags=shared" > /etc/systemd/system/docker.service.d/clear_mount_propagtion_flags.conf && systemctl daemon-reload && systemctl restart docker'`
 4. Deploy the services using the instructions above
