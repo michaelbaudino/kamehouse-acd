@@ -1,3 +1,8 @@
 #!/bin/bash
 
+# Unmount EncFS mounts for acd-fuse and acd-cache
+fusermount -u -q ${ACD_MOUNT_PATH}/acd-cache
+fusermount -u -q ${ACD_MOUNT_PATH}/acd-fuse
+
+# Unmount all ACDFuse mounts
 acd_cli umount

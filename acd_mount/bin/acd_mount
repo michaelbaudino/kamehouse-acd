@@ -7,21 +7,34 @@ source $(dirname $0)/.acd_mount.shared
 
 # Unmount existing ACDFuse and EncFS mounts
 acd_unmount
-fusermount -u -q ${ACD_MOUNT_PATH}/acd
+
+# Setup file hierarchy
+mkdir -p ${ACD_MOUNT_PATH}{,/acd,/{.,}acd-{cache,fuse}}
+
+echo DEBUG
+find ${ACD_MOUNT_PATH}
+echo DEBUG
+
+# Start EncFS
+echo "${ENCFS_PASSWORD}" | ENCFS6_CONFIG="${ENCFS6_CONFIG}" encfs -o allow_other --standard --stdinpass ${ACD_MOUNT_PATH}/{.,}acd-cache
+if [[ ! -f ${ENCFS6_CONFIG} ]]; then
+  echo "Moving ${ACD_MOUNT_PATH}/.acd-cache/.encfs6.xml to ${ENCFS6_CONFIG}"
+  [[ -d ${ACD_MOUNT_PATH}/acd-cache ]] && fusermount -u -q ${ACD_MOUNT_PATH}/acd-cache
+  mv ${ACD_MOUNT_PATH}/.acd-cache/.encfs6.xml ${ENCFS6_CONFIG}
+fi
+echo "${ENCFS_PASSWORD}" | ENCFS6_CONFIG="${ENCFS6_CONFIG}" encfs -o allow_other --standard --stdinpass ${ACD_MOUNT_PATH}/{.,}acd-fuse
 
 # Initialize ACD
 acd_cli init
 acd_cli psync --recursive /
 
 # Mount ACD
-mkdir -p ${ACD_MOUNT_PATH}{,/{.,}acd}
 acd_cli \
   -nl mount \
+  --foreground \
   --allow-other \
   --uid=${ACD_UID} \
   --gid=${ACD_GID} \
   --umask=${ACD_UMASK} \
   --interval=${ACD_SYNC_INTERVAL} \
-  ${ACD_MOUNT_PATH}/.acd
-
-echo "${ENCFS_PASSWORD}" | encfs -f -o allow_other --standard --stdinpass ${ACD_MOUNT_PATH}/{.,}acd
+  ${ACD_MOUNT_PATH}/.acd-fuse
