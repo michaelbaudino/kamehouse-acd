@@ -51,7 +51,7 @@ dd bs=1 count=32 if=/dev/urandom status=none | base64 - | sed 's/=$//' >> .env
 
 Run:
 ```
-docker-compose -f media.yml [-f media.production.yml] [-f media.override.yml] up [-d]
+docker-compose -fmedia{,.production}.yml up [-d]
 ```
 
 ### Provision on a Scaleway server using Docker Machine
