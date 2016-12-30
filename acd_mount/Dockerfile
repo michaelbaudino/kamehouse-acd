@@ -7,6 +7,7 @@ RUN apt-get update \
       fuse \
       libfuse2 \
       encfs \
+      unionfs-fuse \
  && pip install --upgrade git+https://github.com/yadayada/acd_cli.git
 
 COPY bin/* /usr/local/bin/

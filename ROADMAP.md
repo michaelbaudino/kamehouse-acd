@@ -18,7 +18,7 @@
 * [-] Mount local drive as `/mnt/.acd-cache`
 * [x] Configure [encfs](https://github.com/vgough/encfs) to encrypt `/mnt/.acd-fuse` in `/mnt/acd-fuse`
 * [x] Configure [encfs](https://github.com/vgough/encfs) to encrypt `/mnt/.acd-cache` in `/mnt/acd-cache`
-* [ ] Configure [unionfs-fuse](https://github.com/rpodgorny/unionfs-fuse) to merge `/mnt/acd-fuse` and `/mnt/acd-cache` in `/mnt/acd`
+* [x] Configure [unionfs-fuse](https://github.com/rpodgorny/unionfs-fuse) to merge `/mnt/acd-fuse` and `/mnt/acd-cache` in `/mnt/acd`
 * [ ] Configure nightly upload from cache to ACD
 * [ ] Configure monthly removal of old files from cache
 

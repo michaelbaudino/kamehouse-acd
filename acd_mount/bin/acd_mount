@@ -24,6 +24,9 @@ info "Initializing ACD"
 acd_cli init
 acd_cli psync --recursive /
 
+info "Mounting UnionFS"
+unionfs-fuse -o cow -o allow_other ${ACD_MOUNT_PATH}/acd-cache=RW:${ACD_MOUNT_PATH}/acd-fuse=RO ${ACD_MOUNT_PATH}/acd
+
 info "Mounting ACD"
 acd_cli \
   -nl mount \

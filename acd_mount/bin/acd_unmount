@@ -2,6 +2,9 @@
 
 source $(dirname $0)/.acd_mount.shared
 
+info "Unmounting UnionFS"
+fusermount -u -q ${ACD_MOUNT_PATH}/acd
+
 info "Unmounting EncFS"
 fusermount -u -q ${ACD_MOUNT_PATH}/acd-cache
 fusermount -u -q ${ACD_MOUNT_PATH}/acd-fuse
