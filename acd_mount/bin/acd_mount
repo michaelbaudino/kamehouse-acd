@@ -12,13 +12,13 @@ acd_unmount
 mkdir -p ${ACD_MOUNT_PATH}{,/acd,/{.,}acd-{cache,fuse}}
 
 info "Starting EncFS"
-echo "${ENCFS_PASSWORD}" | ENCFS6_CONFIG="${ENCFS6_CONFIG}" encfs -o allow_other --standard --stdinpass ${ACD_MOUNT_PATH}/{.,}acd-cache
+ENCFS6_CONFIG="${ENCFS6_CONFIG}" encfs -o allow_other --standard --extpass="echo \"${ENCFS_PASSWORD}\"" ${ACD_MOUNT_PATH}/{.,}acd-cache
 if [[ ! -f ${ENCFS6_CONFIG} ]]; then
   info "This is the first time EncFS runs here."
   info "Moving generated ${c_cyan}${ACD_MOUNT_PATH}/.acd-cache/.encfs6.xml${c_reset} to ${c_cyan}${ENCFS6_CONFIG}${c_reset} for configuration sharing."
   mv ${ACD_MOUNT_PATH}/.acd-cache/.encfs6.xml ${ENCFS6_CONFIG}
 fi
-echo "${ENCFS_PASSWORD}" | ENCFS6_CONFIG="${ENCFS6_CONFIG}" encfs -o allow_other --standard --stdinpass ${ACD_MOUNT_PATH}/{.,}acd-fuse
+ENCFS6_CONFIG="${ENCFS6_CONFIG}" encfs -o allow_other --standard --extpass="echo \"${ENCFS_PASSWORD}\"" ${ACD_MOUNT_PATH}/{.,}acd-fuse
 
 info "Initializing ACD"
 acd_cli init
