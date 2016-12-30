@@ -2,5 +2,8 @@
 
 source $(dirname $0)/.acd_mount.shared
 
+info "Uploading new/changed files"
 acd_cli upload --overwrite ${ACD_MOUNT_PATH}/.acd-cache/* /
+
+info "Synchronizing ACD"
 acd_cli psync --recursive /

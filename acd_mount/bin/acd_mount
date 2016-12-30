@@ -11,7 +11,7 @@ acd_unmount
 # Setup file hierarchy
 mkdir -p ${ACD_MOUNT_PATH}{,/acd,/{.,}acd-{cache,fuse}}
 
-info "Starting EncFS"
+info "Mounting EncFS"
 ENCFS6_CONFIG="${ENCFS6_CONFIG}" encfs -o allow_other --standard --extpass="echo \"${ENCFS_PASSWORD}\"" ${ACD_MOUNT_PATH}/{.,}acd-cache
 if [[ ! -f ${ENCFS6_CONFIG} ]]; then
   info "This is the first time EncFS runs here."
