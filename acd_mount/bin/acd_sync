@@ -3,4 +3,4 @@
 source $(dirname $0)/.acd_mount.shared
 
 acd_cli upload ${ACD_MOUNT_PATH}/.acd-cache/* /
-acd_cli sync
+acd_cli psync --recursive /
