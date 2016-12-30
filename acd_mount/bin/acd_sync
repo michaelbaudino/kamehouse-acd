@@ -10,3 +10,4 @@ acd_cli psync --recursive /
 
 info "Deleting old files from cache"
 find ${ACD_MOUNT_PATH}/acd-cache/ -type f -mtime +${ACD_CACHE_DAYS_RETENTION} -exec rm -rf {} \;
+find ${ACD_MOUNT_PATH}/acd-cache/ -type d -empty -delete
