@@ -1,0 +1,6 @@
+#!/bin/bash
+
+source $(dirname $0)/.acd_mount.shared
+
+acd_cli upload ${ACD_MOUNT_PATH}/.acd-cache/* /
+acd_cli sync
