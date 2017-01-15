@@ -18,14 +18,14 @@ ENCFS6_CONFIG="${ACD_CONFIG_PATH}/.encfs6.xml"
 ### Generic helpers
 
 if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-  c_reset='\e[0m'
-  c_gray='\e[1;30m'
-  c_red='\e[0;31m'
-  c_green='\e[0;32m'
-  c_yellow='\e[0;33m'
-  c_blue='\e[0;34m'
-  c_purple='\e[0;35m'
-  c_cyan='\e[0;36m'
+  c_reset='\033[0m'
+  c_gray='\033[1;30m'
+  c_red='\033[0;31m'
+  c_green='\033[0;32m'
+  c_yellow='\033[0;33m'
+  c_blue='\033[0;34m'
+  c_purple='\033[0;35m'
+  c_cyan='\033[0;36m'
 fi
 
 pushd () { command pushd "$@" > /dev/null ; }
@@ -36,4 +36,4 @@ info    () { command echo -ne "${c_blue}[info]${c_reset} "      && command echo 
 warn    () { command echo -ne "${c_yellow}[warning]${c_reset} " && command echo -e $* ; }
 fail    () { command echo -ne "${c_red}[error]${c_reset} "      && command echo -e $* && exit 1 ; }
 
-clear_line () { echo -ne "\e[2K\r" ; }
+clear_line () { echo -ne "\033[2K\r" ; }
